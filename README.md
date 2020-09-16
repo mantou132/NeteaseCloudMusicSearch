@@ -1,27 +1,3 @@
-## Webextension Boilerplate
+## 网易云音乐搜索
 
-build:
-
-- webpack
-- ts-loader
-- typescript
-- eslint
-- prettier
-
-## development
-
-```bash
-# install dependencies
-npm install
-# start develop
-npm run start
-```
-
-Build:
-```bash
-npm run build:zip
-```
-
-## publish
-
-Publishing Firefox extension requires apikey, save to apikey.js
+为浏览器提供网易云音乐搜索引擎，支持搜索建议
