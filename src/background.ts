@@ -1,9 +1,9 @@
-import { browser, Omnibox } from 'webextension-polyfill-ts';
+import { omnibox, Omnibox, tabs } from 'webextension-polyfill';
 
-const SEARCH_API_URL = `https://music.xianqiao.wang/neteaseapi/search/suggest`;
+const SEARCH_API_URL = `https://music.xianqiao.wang/neteaseapiv2/search/suggest`;
 const SEARCH_RES_URL = `https://music.163.com/#/search/m/`;
 
-browser.omnibox.setDefaultSuggestion({
+omnibox.setDefaultSuggestion({
   description: `Search in music.163.com`,
 });
 
@@ -32,7 +32,7 @@ interface SearchSuggestResult {
 }
 
 // Update the suggestions whenever the input is changed.
-browser.omnibox.onInputChanged.addListener(async (text, addSuggestions) => {
+omnibox.onInputChanged.addListener(async (text, addSuggestions) => {
   const res = await fetch(`${SEARCH_API_URL}?keywords=${text}`);
   const data: SearchSuggestResult = await res.json();
   const suggestions: Omnibox.SuggestResult[] = [];
@@ -52,7 +52,7 @@ browser.omnibox.onInputChanged.addListener(async (text, addSuggestions) => {
 });
 
 // Open the page based on how the user clicks on a suggestion.
-browser.omnibox.onInputEntered.addListener((text, disposition) => {
+omnibox.onInputEntered.addListener((text, disposition) => {
   let url = text;
   if (!text.startsWith(SEARCH_RES_URL)) {
     // Update the url if the user clicks on the default suggestion.
@@ -60,13 +60,13 @@ browser.omnibox.onInputEntered.addListener((text, disposition) => {
   }
   switch (disposition) {
     case 'currentTab':
-      browser.tabs.update({ url });
+      tabs.update({ url });
       break;
     case 'newForegroundTab':
-      browser.tabs.create({ url });
+      tabs.create({ url });
       break;
     case 'newBackgroundTab':
-      browser.tabs.create({ url, active: false });
+      tabs.create({ url, active: false });
       break;
   }
 });

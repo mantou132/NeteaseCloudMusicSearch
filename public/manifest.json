@@ -1,7 +1,8 @@
 {
+  "$schema": "https://raw.githubusercontent.com/extend-chrome/manifest-json-schema/main/schema/manifest.schema.json",
   "name": "Netease Cloud Music Search",
-  "version": "0.0.1",
-  "manifest_version": 2,
+  "version": "0.0.2",
+  "manifest_version": 3,
   "description": "Add Netease Cloud Music search engine",
   "omnibox": {
     "keyword": "music"
@@ -10,7 +11,13 @@
     "128": "icon_128.png",
     "640": "icon_640.png"
   },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{795d8b0a-11a9-475d-9075-4aba8df11f70}",
+      "strict_min_version": "78.0"
+    }
+  },
   "background": {
-    "scripts": ["background.js"]
+    "service_worker": "background.js"
   }
 }

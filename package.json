@@ -1,13 +1,13 @@
 {
   "name": "neteasecloudmusic-search",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "scripts": {
     "lint": "tsc --noEmit && eslint --ext .ts --fix src/",
     "start:firefox": "web-ext --config web-ext.config.js run",
     "start:chromium": "npm run start:firefox -- -t chromium",
     "start": "concurrently npm:watch npm:start:chromium",
-    "build": "webpack --mode=development",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode=development",
     "postinstall": "npm run build",
     "build:xpi": "npm run build && web-ext --config web-ext.config.js sign",
     "build:zip": "npm run build && web-ext --config web-ext.config.js build",
@@ -16,9 +16,10 @@
   "author": "mantou132",
   "license": "ISC",
   "dependencies": {
-    "webextension-polyfill-ts": "^0.13.0"
+    "webextension-polyfill": "^0.12.0"
   },
   "devDependencies": {
+    "@types/webextension-polyfill": "^0.10.7",
     "@typescript-eslint/eslint-plugin": "^3.3.0",
     "@typescript-eslint/parser": "^3.3.0",
     "babel-eslint": "^10.1.0",
